@@ -102,10 +102,10 @@ private:
   //used for lazy deletion
   enum States { ACTIVE, EMPTY, DELETED };
 
-  struct {
+  struct data_t {
     States state;
     __ItemType item;
-  } data_t;
+  };
 
   #endif
   
