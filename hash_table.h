@@ -20,6 +20,7 @@
 #ifndef HASH_TABLE_C
 #define HASH_TABLE_C
 
+
 class HashTable : public __HashTable {
 
 public:
@@ -81,25 +82,6 @@ public:
 
 private:
 
-  //This implementation will use quadratic probing
-  
-  std::vector<data_t> hash_table;
-
-  //the number of items in the table
-  size_t size;
-
-  //gets the smallest prime number that is greater than n
-  int get_next_prime(int n);
-
-  //doubles the size of the hash table
-  //and rehashes the table
-  void resize();
-
-  
-  //find where the item WOULD be in the hash table
-  int find_position(__ItemType& item) const;
-
-  //used for lazy deletion
   enum States { ACTIVE, EMPTY, DELETED };
 
   struct data_t {
@@ -107,6 +89,28 @@ private:
     __ItemType item;
   };
 
-  #endif
+  //This implementation will use quadratic probing
+  
+  std::vector<data_t> hash_table;
+
+  //the number of items in the table
+  size_t current_size;
+
+  //gets the smallest prime number that is greater than n
+  int get_next_prime(int n);
+
+  //doubles the size of the hash table
+  //and rehashes the table
+  void rehash();
+
+  
+  //find where the item WOULD be in the hash table
+  int find_position(__ItemType& item) const;
+
+  //used for lazy deletion
+  
+};
+
+#endif
   
   

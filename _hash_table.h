@@ -18,6 +18,7 @@
 #define __HASH_TABLE_H__
 
 #include <string>
+#include <iostream>
 #include "_hash_item.h"
 
 using namespace std;
@@ -25,7 +26,7 @@ using namespace std;
 
 // The INITIAL_SIZE should be large enough that it will not need to be
 // resized, but you might want to implement resizing in your class.
-#define INITIAL_SIZE 4096
+#define INITIAL_SIZE 4099
 
 
 

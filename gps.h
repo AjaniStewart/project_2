@@ -28,13 +28,20 @@ public:
      *  If the longitude or latitude is out of range, it throws a BadPoint
      *  error.
      */
-    GPS( double lon = 0, double lat = 0) throw (BadPoint);
+    GPS( double lon = 0, double lat = 0) noexcept(false);
 
     /** GPS() copy constructor
      *  If the longitude or latitude is out of range, it throws a BadPoint
      *  error.
      */
     GPS( const GPS & location);
+
+    /** operator=() is the overloaded assignment operator)
+	 *  Copies the values in location to the current GPS object.
+	 *  @postcondition this* has the same values as location
+	 *  @param GPS [in] location]
+	 */
+    void operator=(const GPS& location);
 
     /** distance_between() computes the distance between two points on a sphere
      *  given by their latitudes and longitudes expressed in decimal degrees.

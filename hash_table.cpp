@@ -1,35 +1,24 @@
-/******************************************************************************
-  Title          : hash_table.cpp
-  Author         : Ajani Stewart
-  Created on     : April 12, 2019
-  Description    : Implements a hash table class
-  Purpose        : 
-  Usage          :
-  Build with     : 
-  Modifications  : c++11
-
-
-******************************************************************************/
-
 #include <vector>
 #include <iostream>
 
 #include "hash_table.h"
 #include "_hash_item.h"
 
-HashTable::HashTable() : size(0) {
-  hash_table.resize(DEFAULT_SIZE);
+HashTable::HashTable() : current_size(0) {
+  hash_table.resize(INITIAL_SIZE);
   for (int i = 0; i < hash_table.size(); ++i) {
-    __ItemType temp();
-    hash_table[i] = { EMPTY, temp };
+    __ItemType temp;
+    data_t t = { EMPTY, temp };
+    hash_table[i] = t;
   }
 }
 
-HashTable::HashTable(int init_size) : size(0) {
+HashTable::HashTable(int init_size) : current_size(0) {
   hash_table.resize(get_next_prime(init_size));
   for (int i = 0; i < hash_table.size(); ++i) {
-    __ItemType temp();
-    hash_table[i] = { EMPTY, temp };
+    __ItemType temp;
+    data_t t { EMPTY, temp };
+    hash_table[i] = t;
   }
 }
 
@@ -52,11 +41,12 @@ int HashTable::insert(__ItemType item) {
   if (hash_table[current_pos].state == ACTIVE)
     return 0;
 
-  hash_table[current_pos] = { ACTIVE, item };
-  ++size;
+  data_t t = {ACTIVE, item}; 
+  hash_table[current_pos] = t;
+  ++current_size;
 
-  if (size > hash_table.size() / 2)
-    resize();
+  if (current_size > hash_table.size() / 2)
+    rehash();
 
   return 1;
   
@@ -73,28 +63,28 @@ int HashTable::remove(__ItemType item) {
 
   if (hash_table[current_pos].state == ACTIVE) {
     hash_table[current_pos].state = DELETED;
-    --size;
+    --current_size;
     return 1;
   } else
     return 0;
 }
 
-int HashTable::size() const() {
-  return size;
+int HashTable::size() const {
+  return current_size;
 }
 
 int HashTable::listall (std::ostream& os) const {
   int num = 0;
   for (int i = 0; i < hash_table.size(); ++i) {
     if (hash_table[i].state == ACTIVE) {
-      os << "item: "<< item << " key: " << i << "\n";
+      os << "item: "<< hash_table[i].item << " key: " << i << "\n";
       num++;
     }
   }
   return num;
 }
 
-//very ineffeicent
+//very ineffeicent primality testing
 bool is_prime(int n) {
   for (int i = 2; i < n * n; ++i)
     if (n % i == 0)
@@ -111,14 +101,16 @@ int HashTable::get_next_prime(int n) {
   }
 }
 
-int HashTable::resize() {
+void HashTable::rehash() {
   int new_size = get_next_prime(2 * hash_table.size());
   std::vector<data_t> new_hash_table;
-  new_hash_table(new_size);
+  new_hash_table.resize(new_size);
 
-  for (const auto& element : hash_table) {
+  for (auto& element : hash_table) {
     if (element.state == ACTIVE) {
-      new_hash_table.insert(element.item);
+      int current_pos = find_position(element.item);
+      data_t t = {ACTIVE, element.item}; 
+      new_hash_table[current_pos] = t;
     }
   }
   hash_table = new_hash_table;

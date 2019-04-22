@@ -22,7 +22,7 @@ const double R = 6372.8;
 //conversion of degrees to rads
 const double TO_RAD = M_PI / 180.0;
 
-GPS::GPS(double lon = 0, double lat = 0) throw (BadPoint) {
+GPS::GPS(double lon, double lat) noexcept(false) {
   if (lon > 180 || lon < -180 || lat > 90 || lat < -90)
     throw BadPoint();
 
@@ -30,7 +30,7 @@ GPS::GPS(double lon = 0, double lat = 0) throw (BadPoint) {
   latitude = lat;
 }
 
-GPS::GPS(const GPS& location) throw (BadPoint) {
+GPS::GPS(const GPS& location) {
   if (location.longitude > 180 || location.longitude < -180 ||
       location.latitude > 90 || location.latitude < -90)
     throw BadPoint();
@@ -61,5 +61,6 @@ double distance_between(GPS point1, GPS point2) {
 }
 
 std::ostream& operator<<(std::ostream& out, GPS point) {
-  out << "(" << point.latitiude << " " << point.longitude << ")";
+  out << "(" << point.latitude << " " << point.longitude << ")";
+  return out;
 }
