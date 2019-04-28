@@ -1,5 +1,5 @@
 /******************************************************************************
-  Title          : gps.h
+  // Title          : gps.h
   Author         : Stewart Weiss
   Created on     : April 18, 2018
   Description    : The interface to a GPS class that encapsulates GPS points

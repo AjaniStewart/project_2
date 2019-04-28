@@ -1,12 +1,21 @@
 # Credit to marin marinov for graciouslly lending me his Makefile
 
-CXXFLAGS=-std=c++11
+CXXFLAGS=-std=c++14
 
 main: main.o hash_table.o hash_item.o gps.o
 	g++ -o main main.o hash_table.o hash_item.o gps.o
 
-main.o: main.cpp _hash_item.h hash_table.cpp
-	g++ $(CXXFLAGS) -c main.cpp
+# main.o: main.cpp _hash_item.h hash_table.cpp
+# 	g++ $(CXXFLAGS) -c main.cpp
+
+test: test.o subway_route.o
+	g++ -o test test.o subway_route.o
+
+test.o: test.cpp subway_route.h doctest.h
+	g++ $(CXXFLAGS) -c test.cpp
+
+subway_route.o: subway_route.cpp subway_route.h
+	g++ $(CXXFLAGS) -c subway_route.cpp
 
 hash_item.o: hash_item.cpp _hash_item.h
 	g++ $(CXXFLAGS) -c hash_item.cpp
@@ -22,7 +31,7 @@ debug: CXXFLAGS:=$(CXXFLAGS) -g -fsanitize=address,undefined
 debug: main
 
 clean:
-	rm -f main main.o hash_item.o hash_table.o gps.o
+	rm -f main test hash_item.o hash_table.o gps.o test.o subway_route.o
 
 run:
 	./main
