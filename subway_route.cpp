@@ -45,7 +45,8 @@ std::string str_from_routeset( route_set s ) {
     }
     s = s >> 1;
   }
-
+  //remove trailing space
+  routes.pop_back();
   return routes;
 }
 
@@ -76,6 +77,8 @@ int routestring2int( std::string s ) {
 //inverse of above
 
 std::string int2route_id ( int k ) {
+  if (k > 35 || k < 1) { return ""; }
+  
   if (k >= 1 && k <= 7) { return std::to_string(k); }
   else if (k == 8) { return "FS"; }
   else if (k == 9) { return "GS"; }

@@ -18,7 +18,36 @@ TEST_CASE("Testing Subway Routes") {
   }
 
   SUBCASE("str_from_routeset") {
-    route_set routes = 0b0000000000000000000000000000011111111111111111111111111111111111;
-    CHECK(str_from_routeset(routes) == "1 2 3 4 5 6 7 FS GS A B C D E F G H I J K L M N O P Q R S T U V W X Y Z ");
+    route_set routes = 0b11111111111111111111111111111111111;
+    CHECK(str_from_routeset(routes) == "1 2 3 4 5 6 7 FS GS A B C D E F G H I J K L M N O P Q R S T U V W X Y Z");
+    routes = 0;
+    CHECK(str_from_routeset(routes) == "");
+    routes = 32;
+    CHECK(str_from_routeset(routes) == "6");
+    routes = 0b1100000010001110010001000011011001;
+    CHECK(str_from_routeset(routes) == "1 4 5 7 FS D H K L M Q X Y");
+  }
+
+  SUBCASE("routestring2int") {
+    CHECK(routestring2int("3") == 3);
+    CHECK(routestring2int("9") == -1);
+    CHECK(routestring2int("0") == -1);
+    CHECK(routestring2int("A") == 10);
+    CHECK(routestring2int("a") == 10);
+    CHECK(routestring2int("FS") == 8);
+    CHECK(routestring2int("*") == -1);
+
+  }
+
+  SUBCASE("int2route_id") {
+    CHECK(int2route_id(0) == "");
+    CHECK(int2route_id(36) == "");
+    CHECK(int2route_id(1) == "1");
+    CHECK(int2route_id(5) == "5");
+    CHECK(int2route_id(8) == "FS");
+    CHECK(int2route_id(9) == "GS");
+    CHECK(int2route_id(10) == "A");
+    CHECK(int2route_id(17) == "H");
+    CHECK(int2route_id(35) == "Z");
   }
 }

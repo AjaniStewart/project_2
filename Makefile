@@ -1,6 +1,4 @@
-# Credit to marin marinov for graciouslly lending me his Makefile
-
-CXXFLAGS=-std=c++14
+CXXFLAGS=-std=c++11
 
 main: main.o hash_table.o hash_item.o gps.o
 	g++ -o main main.o hash_table.o hash_item.o gps.o
@@ -12,7 +10,7 @@ test: test.o subway_route.o
 	g++ -o test test.o subway_route.o
 
 test.o: test.cpp subway_route.h doctest.h
-	g++ $(CXXFLAGS) -c test.cpp
+	g++ -std=c++14 -c test.cpp
 
 subway_route.o: subway_route.cpp subway_route.h
 	g++ $(CXXFLAGS) -c subway_route.cpp
