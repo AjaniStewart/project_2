@@ -1,12 +1,12 @@
-/******************************************************************************
+ /******************************************************************************
   Title          : _subway_portal.h
   Author         : Stewart Weiss
   Created on     : April 18, 2018
   Description    : Interface file for the SubwayPortal object
   Purpose        : Encapsulates data and methods of a subway portal
   Usage          :
-  Build with     :
-  Modifications  :
+  Build with     : Don't Build
+  Modifications  : April 28: Made it an abstract class;
 
 ******************************************************************************/
 
@@ -28,56 +28,40 @@
 using namespace std;
 
 
-struct Invalid_Portal_Data {};
+struct Invalid_Portal_Data { };
 
 class SubwayStation;
 
-class SubwayPortal
+class SubwayPortal;
+
+class _SubwayPortal
 {
 public:
-    SubwayPortal();
-    SubwayPortal( string data_row );
+    // _SubwayPortal();
+    // _SubwayPortal( string data_row );
 
     /** returns the distance between station and a gps location  */
-    double distance_from( double latitude, double longitude);
-
-    /** returns the distance between the two portals  */
-    friend double distance_between( SubwayPortal portal1,
-                                    SubwayPortal portal2);
-
-
-
-    /** returns true if the two portals have the exact same set of routes  */
-    friend bool same_routes( SubwayPortal portal1,
-                             SubwayPortal portal2);
-
-    /** returns true if the two portals belong to the same station */
-    friend bool same_station( SubwayPortal portal1,
-                              SubwayPortal portal2);
-
-    friend ostream & operator<< ( ostream & out, SubwayPortal e);
-
-    friend class SubwayStation;
+    virtual double distance_from( double latitude, double longitude) = 0;
 
     /*  Accessor  Functions */
     /**  name() returns name of portal as a unique string
      */
-    string name()  const;
+    virtual string name()  const = 0;
 
     /** can_access() returns true if given route is accessible
      *  @param route_set [in]  a bitstring with a 1 bit for route
      *  @return bool  true iff route is accessible from this portal
      */
-    bool   can_access( route_set route ) const;
+    virtual bool   can_access( route_set route ) const = 0;
 
     /**  p_location() returns GPS location of portal  */
-    GPS    p_location() const;
+    virtual GPS    p_location() const = 0;
 
     /**  s_location() returns GPS location of portal's station */
-    GPS    s_location() const;
+    virtual GPS    s_location() const = 0;
 
     /**  routes() returns route set of portal */
-    route_set routes() const;
+     virtual route_set routes() const = 0;
 
 };
 
