@@ -1,6 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include "subway_route.h"
+#include "subway_portal.h"
 
 using namespace std;
 
@@ -50,4 +51,9 @@ TEST_CASE("Testing Subway Routes") {
     CHECK(int2route_id(17) == "H");
     CHECK(int2route_id(35) == "Z");
   }
+}
+
+//TODO: make test cases for subway portal
+TEST_CASE("Testing Subway Portal") {
+
 }

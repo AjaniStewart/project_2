@@ -61,26 +61,27 @@ SubwayPortal::SubwayPortal( std::string data_row ) {
   line = data_vector[1];
   station_name = data_vector[2];
 
+  station_latitude = std::stod(data_vector[3]);
   station_latitude = std::stod(data_vector[4]);
-  station_latitude = std::stod(data_vector[5]);
 
   p_routes = 0;
   //sets the relevant bits
   //least significant bit is 1 - train
   //35th lesat significant bit (or 29th most significant bit) is z train
-  for ( int i = 6; i < 17; ++i ) {
+  for ( int i = 5; i < 16; ++i ) {
     if ( data_vector[i] != "" ) {
       int k = routestring2int(data_vector[i]);
       p_routes = p_routes | (1 << (k - 1));
     }
   }
 
-  entrance_type = data_vector[17];
-  entry = (data_vector[18] == "YES");
-  exit_only = (data_vector[19] == "YES");
-  vending = (data_vector[20] == "YES");
+  entrance_type = data_vector[16];
+  entry = (data_vector[17] == "YES");
+  exit_only = (data_vector[18] == "YES");
+  vending = (data_vector[19] == "YES");
 
-  staffing = data_vector[21];
+  staffing = data_vector[20];
+  staff_hours = data_vector[21];
   ada = (data_vector[22] == "TRUE");
   ada_notes = data_vector[23];
   free_crossover = (data_vector[24] == "TRUE");
@@ -94,7 +95,6 @@ SubwayPortal::SubwayPortal( std::string data_row ) {
   entrance_longitude = std::stod(data_vector[30]);
   
   station_location = GPS( station_longitude, station_latitude );
-
   entrance_location = GPS( entrance_longitude, entrance_latitude );
 
   p_name = munch_whitespace(north_south_street + "," + east_west_street + "," + corner + "," + to_string(id));
