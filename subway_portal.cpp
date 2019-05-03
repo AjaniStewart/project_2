@@ -19,7 +19,14 @@
 
 typedef std::vector<std::string> string_array;
 
-SubwayPortal::SubwayPortal() { }
+SubwayPortal::SubwayPortal() : p_name(""), division(""), line(""), station_name(""),
+                               station_latitude(0), station_longitude(0), p_routes(0),
+                               entrance_type(""), entry(true), exit_only(false), vending(false),
+                               staffing(""), staff_hours(""), ada(false), ada_notes(""),
+                               free_crossover(false), north_south_street(""),
+                               east_west_street(""), corner(""), id(1), entrance_latitude(0),
+                               entrance_longitude(0), station_location({0,0}),
+                               entrance_location({0,0}) { }
 
 
 //splits a string on a specified 

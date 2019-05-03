@@ -22,6 +22,9 @@
 class SubwayPortal : public _SubwayPortal {
 public:
   //delclarations of virtual functions in interface file
+
+  //default constructor
+  //initializes private members with default values
   SubwayPortal();
   // data_row is a single row in the csv file
   SubwayPortal( std::string data_row );
