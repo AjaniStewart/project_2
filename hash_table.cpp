@@ -6,7 +6,7 @@
 
 HashTable::HashTable() : current_size(0) {
   hash_table.resize(INITIAL_SIZE);
-  for (int i = 0; i < hash_table.size(); ++i) {
+  for (size_t i = 0; i < hash_table.size(); ++i) {
     __ItemType temp;
     data_t t = { EMPTY, temp };
     hash_table[i] = t;
@@ -15,7 +15,7 @@ HashTable::HashTable() : current_size(0) {
 
 HashTable::HashTable(int init_size) : current_size(0) {
   hash_table.resize(get_next_prime(init_size));
-  for (int i = 0; i < hash_table.size(); ++i) {
+  for (size_t i = 0; i < hash_table.size(); ++i) {
     __ItemType temp;
     data_t t { EMPTY, temp };
     hash_table[i] = t;
@@ -24,7 +24,7 @@ HashTable::HashTable(int init_size) : current_size(0) {
 
 int HashTable::find_position(__ItemType& item) const {
   int collision_num = 0;
-  int current_pos = item.code() % hash_table.size();
+  size_t current_pos = item.code() % hash_table.size();
 
   while (hash_table[current_pos].state != EMPTY && !(hash_table[current_pos].item == item)) {
     current_pos += 2 * ++collision_num - 1;
@@ -83,7 +83,7 @@ int HashTable::size() const {
 
 int HashTable::listall (std::ostream& os) const {
   int num = 0;
-  for (int i = 0; i < hash_table.size(); ++i) {
+  for (size_t i = 0; i < hash_table.size(); ++i) {
     if (hash_table[i].state == ACTIVE) {
       os << "item: "<< hash_table[i].item << " key: " << i << "\n";
       num++;

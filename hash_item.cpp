@@ -40,7 +40,7 @@ bool __ItemType::operator==(__ItemType rhs) const {
 //Credit to Stewart weiss
 unsigned int encode (const int RADIX, const std::string& s) {
   unsigned int hashval = 0;
-  for (int i = 0; i < s.length(); ++i)
+  for (size_t i = 0; i < s.length(); ++i)
     hashval = s[i] + RADIX * hashval; //p(x) = s_i + x(q(x))
   return hashval;
 }

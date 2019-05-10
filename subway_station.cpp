@@ -66,6 +66,10 @@ std::string SubwayStation::primary_name() const {
   return m_primary_name; 
 }
 
+int SubwayStation::parent_id() const {
+  return m_parent_id;
+}
+
 std::list<int> SubwayStation::portal_list() const {
   return children;
 }

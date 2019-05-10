@@ -1,0 +1,5 @@
+The directory named commandfiles contains command files that can be used as
+inputs to the program if you use the revised data set, 
+subwaydata_newstationnames.csv.  The directory named outputfiles has correspnding
+outputs for each of these files, named with the extension "_out".
+These can be used for comparing your program's output to my version.

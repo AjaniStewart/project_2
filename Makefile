@@ -1,35 +1,20 @@
-CXXFLAGS=-std=c++11
+# A Sample Makefile
 
-main: main.o hash_table.o hash_item.o gps.o
-	g++ -o main main.o hash_table.o hash_item.o gps.o
+SRCS       = $(wildcard *.cpp)
+OBJS       := $(patsubst %.cpp, %.o, $(SRCS))  
+EXEC       := project2 
+CXX        := g++-9
+CXXFLAGS   += -Wall -g -std=c++11
+LDFLAGS    := -image_base %s -pagezero_size 1000400000 -fno-pic
 
-# main.o: main.cpp _hash_item.h hash_table.cpp
-# 	g++ $(CXXFLAGS) -c main.cpp
+$(EXEC): $(OBJS) new_main.o
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@  $(OBJS) new_main.o
 
-test: test.o subway_route.o
-	g++ -o test test.o subway_route.o
-
-test.o: test.cpp subway_route.h doctest.h
-	g++ -std=c++14 -c test.cpp
-
-subway_route.o: subway_route.cpp subway_route.h
-	g++ $(CXXFLAGS) -c subway_route.cpp
-
-hash_item.o: hash_item.cpp _hash_item.h
-	g++ $(CXXFLAGS) -c hash_item.cpp
-
-hash_table.o: hash_table.cpp hash_table.h
-	g++ $(CXXFLAGS) -c hash_table.cpp
-
-gps.o: gps.cpp gps.h
-	g++ $(CXXFLAGS) -c gps.cpp
-
-debug: CXXFLAGS:=$(CXXFLAGS) -g -fsanitize=address,undefined
-
-debug: main
+.PHONY: clean cleanall
+cleanall: clean
+	$(RM) $(EXEC)
 
 clean:
-	rm -f main test hash_item.o hash_table.o gps.o test.o subway_route.o
+	$(RM) $(OBJS)
 
-run:
-	./main
+

@@ -19,6 +19,7 @@
 #include "subway_station.h"
 #include "_hash_item.h"
 #include "gps.h"
+#include "hash_table.h"
 
 typedef __ItemType item_t;
 
@@ -174,12 +175,6 @@ void SubwaySystem::union_stations( int s1, int s2 ) {
     if ( stations[s2].parent_id() < stations[s1].parent_id() ) {
       stations[s2].set_parent( stations[s1].parent_id() + stations[s2].parent_id() );
       stations[s1].set_parent( s2 );
-      //add station_names
-
-      // auto names = stations[s1].names();
-      // std::for_each( names.begin(), names.end(), [&](const std::string& ) {
-      //   stations
-      // });
     } else {
       stations[s1].set_parent( stations[s2].parent_id() + stations[s1].parent_id() );
       stations[s2].set_parent( s1 );
