@@ -6,7 +6,7 @@
   Purpose        : Encapsulates data and methods of a subway station
   Usage          :
   Build with     :
-  Modifications  :
+  Modifications  : overloaded streaming operator
 
 ******************************************************************************/
 
@@ -16,9 +16,12 @@
 #include <string>
 #include <list>
 #include <set>
+#include <iostream>
 
 #include "subway_portal.h"
 #include "subway_route.h"
+
+#define DISTANCE_THRESHOLD 0.32
 
 class SubwayStation {
 public:
@@ -42,6 +45,11 @@ public:
    *  @param int [int] the index of the child
    */
   void add_child( int new_child );
+
+  /** add_children adds a list of children to the station's list of children
+   *  @param list<int> list of indicies of children
+   */
+  void add_children( std::list<int>children );
 
   /** A friend function that determines when two stations are connected
    *  @param SubwayStation [in] s1
@@ -75,6 +83,8 @@ public:
   //returns the embedded portal
   void get_portal( SubwayPortal& portal ) const;
 
+  friend std::ostream& operator<<( std::ostream& out, SubwayStation s);
+
 private:
   int m_parent_id;
   std::set<std::string> station_names;
@@ -82,7 +92,6 @@ private:
   std::string m_portal_name;
   SubwayPortal portal;
   std::string m_primary_name;
-  route_set routes;
 };
 
 #endif

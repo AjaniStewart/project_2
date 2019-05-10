@@ -6,19 +6,19 @@
   Purpose        : 
   Usage          :
   Build with     : 
-  Modifications  :
+  Modifications  : overloads find
 
 
 ******************************************************************************/
+
+#ifndef HASH_TABLE_H
+#define HASH_TABLE_H
 
 #include <iostream>
 #include <vector>
 
 #include "_hash_table.h"
 #include "_hash_item.h"
-
-#ifndef HASH_TABLE_C
-#define HASH_TABLE_C
 
 
 class HashTable : public __HashTable {
@@ -31,7 +31,7 @@ public:
 
   //parameterized constructor for hash_table
   //initializes the size of the hash table to init_size
-  //actual size will be the smallest prime number greater than init_size
+  //actual size will be the smallest prime number greater than or equal to init_size
   HashTable(int init_size);
 
    /** find() searches in table for given item
@@ -50,6 +50,14 @@ public:
      *  @param  ItemType [in] item : item to insert
      *  @return int 0 if item is not inserted in table, and 1 if it is
      */
+  
+  /** find() searches in table for given string
+     *  @postcondition: if matching item is found, it is filled with value from
+     *                  table.
+     *  @param  string [in] s : string to search for
+     *  @return int -1 if item is not in table, and position of the associated value of s if it is
+     */
+  int find ( std::string s ) const;
 
   int insert (__ItemType item);
 

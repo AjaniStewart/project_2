@@ -13,6 +13,7 @@
 #include <string>
 #include <vector>
 #include <cctype>
+#include <iostream>
 
 #include "subway_portal.h"
 #include "subway_route.h"
@@ -141,4 +142,9 @@ bool same_routes( SubwayPortal p1, SubwayPortal p2 ) {
 
 bool same_station( SubwayPortal p1, SubwayPortal p2 ) {
   return p1.station_name == p2.station_name;
+}
+
+std::ostream& operator<< ( std::ostream& out, SubwayPortal e ) {
+  out << e.entrance_location;
+  return out;
 }

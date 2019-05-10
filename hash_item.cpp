@@ -29,6 +29,10 @@ void __ItemType::get(std::string& s, int& pos) {
   pos = position;
 }
 
+int __ItemType::get_pos() const {
+  return position;
+}
+
 bool __ItemType::operator==(__ItemType rhs) const {
   return rhs.name != "" && name == rhs.name;
 }

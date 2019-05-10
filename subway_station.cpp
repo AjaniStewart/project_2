@@ -6,9 +6,11 @@
   Purpose        : Encapsulates data and methods of a subway station
   Usage          :
   Build with     : -std=c++11
-  Modifications  :
+  Modifications  :  added overloading streaming operator, add_children
 
 ******************************************************************************/
+
+#include <algorithm>
 
 #include "subway_station.h"
 #include "subway_portal.h"
@@ -36,6 +38,12 @@ void SubwayStation::set_parent( int new_parent ) {
 
 void SubwayStation::add_child( int new_child ) {
   children.push_back( new_child );
+}
+
+void SubwayStation::add_children( std::list<int> new_children ) {
+  std::for_each(new_children.begin(), new_children.end(), [&](int child) {
+    children.push_back(child);
+  });
 }
 
 int SubwayStation::add_station_name( std::string name ) {
@@ -71,5 +79,13 @@ void SubwayStation::get_portal( SubwayPortal& p ) const {
 }
 
 bool connected( SubwayStation s1, SubwayStation s2 ) {
-  return true;
+  return same_routes( s1.portal, s2.portal ) &&
+         distance_between( s1.portal, s2.portal ) <= DISTANCE_THRESHOLD;
+}
+
+std::ostream& operator<<( std::ostream& out, SubwayStation s) {
+  std::for_each(s.station_names.begin(), s.station_names.end(), [&](const std::string& s) {
+    out << s;
+  });
+  return out;
 }

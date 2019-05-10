@@ -58,6 +58,14 @@ int HashTable::find(__ItemType& item) const {
   return hash_table[current_pos].state == ACTIVE ? 1 : 0;
 }
 
+int HashTable::find( std::string s ) const {
+  __ItemType temp;
+  temp.set(s);
+  int current_pos = find_position( temp );
+
+  return hash_table[current_pos].state == ACTIVE ? hash_table[ current_pos ].item.get_pos() : -1;
+}
+
 int HashTable::remove(__ItemType item) {
   int current_pos = find_position(item);
 

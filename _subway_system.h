@@ -1,12 +1,12 @@
 /******************************************************************************
-  Title          : subway_system.h
+  Title          : _subway_system.h
   Author         : Stewart Weiss
   Created on     : April 18, 2018
   Description    : Interface file for the SubwaySystem object
   Purpose        : Encapsulates data and methods of a subway system
   Usage          :
   Build with     : no build
-  Modifications  :
+  Modifications  : made this class abstract
 
 ******************************************************************************/
 
@@ -34,12 +34,12 @@ public:
      *  @param  SubwayPortal [in] portal: an initialized portal
      *  @return int  1 if successful, 0 if portal is not added.
      */
-    int add_portal(SubwayPortal portal);
+    virtual int add_portal(SubwayPortal portal) = 0;
 
     /** list_all_stations() lists all subway station names on the given stream
      *  @param [inout] ostream out is an open output stream
      */
-    void list_all_stations(ostream & out) const;
+    virtual void list_all_stations(ostream & out) const = 0;
 
     /** list_all_portals() lists all portals to a given station on given stream
      *  @param [inout] ostream is an open output stream
@@ -47,7 +47,7 @@ public:
      *          which must be the name of the set of portal names. These can
      *          be obtained from the output of list_all_stations().
      */
-    void list_all_portals(ostream & out, string station_name) const;
+    virtual void list_all_portals(ostream & out, string station_name) const = 0;
 
     /** list_stations_of_route() lists all station names on the given route on
      *          the given output stream
@@ -55,7 +55,7 @@ public:
      *  @param [in]  route_id route is the name of the subway route whose
      *          stations are to be printed onto the stream
      */
-    void list_stations_of_route( ostream & out, route_id route) const;
+    virtual void list_stations_of_route( ostream & out, route_id route) const = 0;
 
 
     /** form_stations()
@@ -69,7 +69,7 @@ public:
      *  computed.
      *  @return int : number of sets created
      */
-    int  form_stations();
+    virtual int  form_stations() = 0;
 
     /** get_portal() searches for a portal whose name equals name_to_find
      *  @param string [in]  name_to_find is the portal name to look up
@@ -77,7 +77,7 @@ public:
      *         if it is found, or is an empty Portal whose name is ""
      *  @return bool true if anf only if the portal is found
      */
-    bool get_portal(string name_to_find, SubwayPortal & portal) const;
+    virtual bool get_portal(string name_to_find, SubwayPortal & portal) const = 0;
 
 
     /** nearest_portal() returns a string representation of the portal that
@@ -86,7 +86,7 @@ public:
      *  @param  double [in]  longitude of point
      *  @return string       portal's name (as defined in subway_portal.h)
      */
-    string nearest_portal( double latitude, double  longitude) const;
+    virtual string nearest_portal( double latitude, double  longitude) const = 0;
 
     /** nearest_routes() returns a string representation of the routes that
      *  are nearest to the given point
@@ -94,7 +94,7 @@ public:
      *  @param  double [in]  longitude of point
      *  @return string       representation of set of routes
      */
-    string nearest_routes( double latitude, double  longitude) const;
+    virtual string nearest_routes( double latitude, double  longitude) const = 0;
 
 };
 

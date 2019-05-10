@@ -6,7 +6,7 @@
   Purpose        : To define the item type to be hashed
   Usage          :
   Build with     :
-  Modifications  :
+  Modifications  : added get_pos
      4/4/2019 by SW
 
 
@@ -35,6 +35,9 @@ public:
     /** get() retrieves the item's data
      */
     void get(string & s, int & pos);
+
+    //retrieves pos
+    int get_pos() const;
 
 
     /** operator==() returns true if given parameter equal item
@@ -67,12 +70,6 @@ private:
     int    position;
 
 };
-
-
-
-
-
-
 
 #endif /* __HASH_ITEM_H__ */
 

@@ -29,19 +29,9 @@ public:
   // data_row is a single row in the csv file
   SubwayPortal( std::string data_row );
 
-  double distance_from( double latitude, double longitude );
-
-  std::string name() const;
-  bool can_access( route_set route ) const;
-  GPS p_location() const;
-  GPS s_location() const;
-  route_set routes() const;
-
   /** returns the distance between the two portals  */
   friend double distance_between( SubwayPortal portal1,
                                   SubwayPortal portal2);
-
-
 
   /** returns true if the two portals have the exact same set of routes  */
   friend bool same_routes( SubwayPortal portal1,
@@ -55,7 +45,18 @@ public:
 
   friend class SubwayStation;
 
+  friend class SubwaySystem;
+
 private:
+  
+  double distance_from( double latitude, double longitude );
+
+  std::string name() const;
+  bool can_access( route_set route ) const;
+  GPS p_location() const;
+  GPS s_location() const;
+  route_set routes() const;
+
   std::string p_name;
   //based on data dictionary
   std::string division;

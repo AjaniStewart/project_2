@@ -6,12 +6,9 @@
   Purpose        : Encapsulates data and methods of a set of subway routes
   Usage          :
   Build with     :
-  Modifications  :
+  Modifications  : added set_route to SubwayRoute
 
 ******************************************************************************/
-
-
-
 
 #ifndef __SUBWAY_ROUTE_H__
 #define __SUBWAY_ROUTE_H__
@@ -98,6 +95,8 @@ public:
      *  reduce function call overhead.
      */
     friend class SubwaySystem;
+
+    friend class SubwayStation;
 
 private:
     route_set     routes;      // bit string for this route
