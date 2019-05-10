@@ -18,6 +18,7 @@
 #include "subway_portal.h"
 #include "subway_station.h"
 #include "_hash_item.h"
+#include "gps.h"
 
 typedef __ItemType item_t;
 
@@ -60,6 +61,7 @@ void SubwaySystem::list_all_portals( std::ostream& out, std::string station_name
 
 void SubwaySystem::list_stations_of_route( std::ostream& out, route_id route ) const {
   auto station_list = route_masks[ routestring2int( route ) - 1 ].station_list();
+  
   std::for_each(station_list.begin(), station_list.end(), [&]( int index ) {
     out << stations[index];
   });
@@ -72,10 +74,10 @@ int SubwaySystem::form_stations() {
   //naive method
 
 
-  for (size_t i = 0; i < stations.size() - 1; ++i) {
+  for ( size_t i = 0; i < stations.size() - 1; ++i ) {
     int root = find_station(i);
 
-    for (size_t j = i + 1; j < stations.size(); ++j) {
+    for ( size_t j = i + 1; j < stations.size(); ++j ) {
       int root2 = find_station(j);
       if (connected(stations[root], stations[root2])) {
         union_stations(root, root2);
@@ -84,11 +86,22 @@ int SubwaySystem::form_stations() {
   }
 
   //add the children
-
-  for (size_t i = 0; i < stations.size(); ++i) {
+  for ( size_t i = 0; i < stations.size(); ++i ) {
     if (stations[i].parent_id() > 0) {
       int root = find_station(i);
       stations[root].add_child(i);
+    }
+  }
+
+  //add station names
+  for (size_t i = 0; i < stations.size(); ++i) {
+    if ( stations[i].parent_id() < 0 ) {
+      const auto& p_list = stations[i].portal_list();
+
+      std::for_each( p_list.begin(), p_list.end(), [&](int j) {
+        if ( stations[j].primary_name() != "" )
+          stations[i].add_station_name( stations[j].primary_name() );
+      });
     }
   }
 
@@ -119,14 +132,30 @@ bool SubwaySystem::get_portal( std::string name_to_find, SubwayPortal& portal ) 
   }
 }
 
+SubwayPortal SubwaySystem::find_nearest_portal( double latitude, double longitude ) const {
+  GPS point { latitude, longitude };
+  double min_distance = 1000000;
+  SubwayPortal nearest_p;
+  for (size_t i = 0; i < stations.size(); ++i) {
+    SubwayPortal cur_portal;
+    stations[i].get_portal(cur_portal);
+    double distance = distance_between(cur_portal.p_location(), point);
+    if (distance < min_distance) {
+      min_distance = distance;
+      nearest_p = cur_portal;
+    }
+  }
+  return nearest_p;
+}
+
 std::string SubwaySystem::nearest_portal( double latitude, double longitude ) const {
-  return "";
+  return find_nearest_portal( latitude, longitude ).p_name;
 }
 
-std::string SubwaySystem::nearest_routes( double latitide, double longitude ) const {
-  return "";
+std::string SubwaySystem::nearest_routes( double latitude, double longitude ) const {
+  SubwayPortal p = find_nearest_portal( latitude, longitude );
+  return str_from_routeset( p.routes() );
 }
-
 
 //credit to Mark Allen Weiss for union/find algorithms
 int SubwaySystem::find_station( int index ) {

@@ -106,6 +106,7 @@ private:
   int number_of_portals;
   SubwayRoute route_masks[ MAX_ROUTES ];
 
+  SubwayPortal find_nearest_portal( double latitude, double longitude ) const;
   int find_station( int index );
   void union_stations( int s1, int s2 );
 
