@@ -14,6 +14,7 @@
 #include <string>
 #include <algorithm>
 
+
 #include "subway_system.h"
 #include "subway_portal.h"
 #include "subway_station.h"
@@ -26,6 +27,7 @@ typedef __ItemType item_t;
 SubwaySystem::SubwaySystem() : number_of_portals(0) {
   for (int i = 0; i < MAX_ROUTES; ++i)
     route_masks[i].routes = (1 << i);
+
 }
 
 int SubwaySystem::add_portal( SubwayPortal portal ) {

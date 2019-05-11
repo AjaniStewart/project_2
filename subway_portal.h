@@ -29,6 +29,21 @@ public:
   // data_row is a single row in the csv file
   SubwayPortal( std::string data_row );
 
+  // move assignment operator
+	SubwayPortal& operator=(SubwayPortal&& other) noexcept;
+
+	// move constructor
+	SubwayPortal(SubwayPortal&& other) noexcept;
+
+	// copy constructor
+	SubwayPortal(const SubwayPortal& other);
+
+	// copy assignment operator
+	SubwayPortal& operator=(const SubwayPortal& other);
+
+	// destructor
+  ~SubwayPortal() = default;
+
   /** returns the distance between the two portals  */
   friend double distance_between( SubwayPortal portal1,
                                   SubwayPortal portal2);

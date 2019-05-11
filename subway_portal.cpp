@@ -29,6 +29,104 @@ SubwayPortal::SubwayPortal() : p_name(""), division(""), line(""), station_name(
                                entrance_longitude(0), station_location({0,0}),
                                entrance_location({0,0}) { }
 
+SubwayPortal::SubwayPortal(const SubwayPortal& other) :
+    p_name(other.p_name),
+    division(other.division),
+    station_name(other.station_name),
+    station_latitude(other.station_latitude),
+    station_longitude(other.station_longitude),
+    p_routes(other.p_routes),
+    entrance_type(other.entrance_type),
+    entry(other.entry),
+    exit_only(other.exit_only),
+    vending(other.vending),
+    staffing(other.staffing),
+    staff_hours(other.staff_hours),
+    ada(other.ada),
+    ada_notes(other.ada_notes),
+    free_crossover(other.free_crossover),
+    north_south_street(other.north_south_street),
+    east_west_street(other.east_west_street),
+    corner(other.corner),
+    id(other.id),
+    entrance_latitude(other.entrance_latitude),
+    entrance_longitude(other.entrance_longitude) { }
+
+SubwayPortal::SubwayPortal(SubwayPortal&& other) noexcept :
+    p_name(other.p_name),
+    division(other.division),
+    station_name(other.station_name),
+    station_latitude(other.station_latitude),
+    station_longitude(other.station_longitude),
+    p_routes(other.p_routes),
+    entrance_type(other.entrance_type),
+    entry(other.entry),
+    exit_only(other.exit_only),
+    vending(other.vending),
+    staffing(other.staffing),
+    staff_hours(other.staff_hours),
+    ada(other.ada),
+    ada_notes(other.ada_notes),
+    free_crossover(other.free_crossover),
+    north_south_street(other.north_south_street),
+    east_west_street(other.east_west_street),
+    corner(other.corner),
+    id(other.id),
+    entrance_latitude(other.entrance_latitude),
+    entrance_longitude(other.entrance_longitude) { }
+
+SubwayPortal& SubwayPortal::operator=(const SubwayPortal& other) {
+	p_name = other.p_name;
+	division = other.division;
+	station_name = other.station_name;
+	station_latitude = other.station_latitude;
+	station_longitude = other.station_longitude;
+	p_routes = other.p_routes;
+	entrance_type = other.entrance_type;
+	entry = other.entry;
+	exit_only = other.exit_only;
+	vending = other.vending;
+	staffing = other.staffing;
+	staff_hours = other.staff_hours;
+	ada = other.ada;
+	ada_notes = other.ada_notes;
+	free_crossover = other.free_crossover;
+	north_south_street = other.north_south_street;
+	east_west_street = other.east_west_street;
+	corner = other.corner;
+	id = other.id;
+  entrance_latitude = other.entrance_latitude;
+  entrance_longitude = other. entrance_longitude;
+
+	return *this;
+}
+
+SubwayPortal& SubwayPortal::operator=(SubwayPortal&& other) noexcept {
+	p_name = other.p_name;
+	division = other.division;
+	station_name = other.station_name;
+	station_latitude = other.station_latitude;
+	station_longitude = other.station_longitude;
+	p_routes = other.p_routes;
+	entrance_type = other.entrance_type;
+	entry = other.entry;
+	exit_only = other.exit_only;
+	vending = other.vending;
+	staffing = other.staffing;
+	staff_hours = other.staff_hours;
+	ada = other.ada;
+	ada_notes = other.ada_notes;
+	free_crossover = other.free_crossover;
+	north_south_street = other.north_south_street;
+	east_west_street = other.east_west_street;
+	corner = other.corner;
+	id = other.id;
+  entrance_latitude = other.entrance_latitude;
+  entrance_longitude = other. entrance_longitude;
+
+	return *this;
+}
+
 
 //splits a string on a specified 
 string_array split( std::string s, char delimiter = ',' ) {
