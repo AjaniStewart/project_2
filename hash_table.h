@@ -119,6 +119,6 @@ private:
   
 };
 
-#endif
+#endif //HASH_TABLE_H
   
   

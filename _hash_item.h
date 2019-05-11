@@ -6,7 +6,7 @@
   Purpose        : To define the item type to be hashed
   Usage          :
   Build with     :
-  Modifications  : added get_pos
+  Modifications  : 
      4/4/2019 by SW
 
 

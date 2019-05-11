@@ -47,11 +47,11 @@ int SubwaySystem::add_portal( SubwayPortal portal ) {
   }
 }
 
-void SubwaySystem::list_all_stations( std::ostream& out ) const {
+void SubwaySystem::list_all_stations( std::ostream& out ) {
   station_hash.listall( out );
 }
 
-void SubwaySystem::list_all_portals( std::ostream& out, std::string station_name ) const {
+void SubwaySystem::list_all_portals( std::ostream& out, std::string station_name ) {
   int position = portal_hash.find( station_name );
   SubwayStation s = stations[position];
 
@@ -60,7 +60,7 @@ void SubwaySystem::list_all_portals( std::ostream& out, std::string station_name
   });
 }
 
-void SubwaySystem::list_stations_of_route( std::ostream& out, route_id route ) const {
+void SubwaySystem::list_stations_of_route( std::ostream& out, route_id route ) {
   auto station_list = route_masks[ routestring2int( route ) - 1 ].station_list();
   
   std::for_each(station_list.begin(), station_list.end(), [&]( int index ) {
@@ -97,7 +97,7 @@ int SubwaySystem::form_stations() {
   //add station names
   for (size_t i = 0; i < stations.size(); ++i) {
     if ( stations[i].parent_id() < 0 ) {
-      const auto& p_list = stations[i].portal_list();
+      const auto p_list = stations[i].portal_list();
 
       std::for_each( p_list.begin(), p_list.end(), [&](int j) {
         if ( stations[j].primary_name() != "" )
@@ -122,7 +122,7 @@ int SubwaySystem::form_stations() {
   return num_disjoint_sets;
 }
 
-bool SubwaySystem::get_portal( std::string name_to_find, SubwayPortal& portal ) const {
+bool SubwaySystem::get_portal( std::string name_to_find, SubwayPortal& portal ) {
   int position = portal_hash.find( name_to_find );
   
   if ( -1 == position ) {
@@ -133,7 +133,7 @@ bool SubwaySystem::get_portal( std::string name_to_find, SubwayPortal& portal ) 
   }
 }
 
-SubwayPortal SubwaySystem::find_nearest_portal( double latitude, double longitude ) const {
+SubwayPortal SubwaySystem::find_nearest_portal( double latitude, double longitude ) {
   GPS point { latitude, longitude };
   double min_distance = 1000000;
   SubwayPortal nearest_p;
@@ -149,11 +149,11 @@ SubwayPortal SubwaySystem::find_nearest_portal( double latitude, double longitud
   return nearest_p;
 }
 
-std::string SubwaySystem::nearest_portal( double latitude, double longitude ) const {
+std::string SubwaySystem::nearest_portal( double latitude, double longitude ) {
   return find_nearest_portal( latitude, longitude ).p_name;
 }
 
-std::string SubwaySystem::nearest_routes( double latitude, double longitude ) const {
+std::string SubwaySystem::nearest_routes( double latitude, double longitude ) {
   SubwayPortal p = find_nearest_portal( latitude, longitude );
   return str_from_routeset( p.routes() );
 }

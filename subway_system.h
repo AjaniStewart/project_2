@@ -10,8 +10,8 @@
 
 ******************************************************************************/
 
-#ifndef SUBWAY_STATION_H__
-#define SUBWAY_STATION_H__
+#ifndef SUBWAY_SYSTEM_H__
+#define SUBWAY_SYSTEM_H__
 
 #include <iostream>
 #include <string>
@@ -29,29 +29,25 @@ public:
   //default constructor
   SubwaySystem();
 
-  //default destructor
-  ~SubwaySystem() = default;
-
   /** add_portal()  adds the given portal to the array of portals
    *  It also creates a hash table entry for this portal that points to
    *  its location in the array.
    *  @param  SubwayPortal [in] portal: an initialized portal
    *  @return int  1 if successful, 0 if portal is not added.
    */
-  int add_portal( SubwayPortal portal ) override;
+  int add_portal( SubwayPortal portal );
 
   /** list_all_stations() lists all subway station names on the given stream
    *  @param [inout] ostream out is an open output stream
    */
-  void list_all_stations( std::ostream& out ) const override;
-
+  void list_all_stations( std::ostream& out );
   /** list_all_portals() lists all portals to a given station on given stream
    *  @param [inout] ostream is an open output stream
    *  @param [in]  string station_name is the exact name of a station,
    *          which must be the name of the set of portal names. These can
    *          be obtained from the output of list_all_stations().
    */
-  void list_all_portals( std::ostream& out, std::string station_name ) const override;
+  void list_all_portals( std::ostream& out, std::string station_name );
 
   /** list_stations_of_route() lists all station names on the given route on
    *          the given output stream
@@ -59,7 +55,7 @@ public:
    *  @param [in]  route_id route is the name of the subway route whose
    *          stations are to be printed onto the stream
    */
-  void list_stations_of_route( std::ostream& out, route_id route ) const override;
+  void list_stations_of_route( std::ostream& out, route_id route );
 
   /** form_stations()
    *  Note: form_stations should be called once after the array of portals
@@ -72,7 +68,7 @@ public:
    *  computed.
    *  @return int : number of sets created
    */
-  int form_stations() override;
+  int form_stations();
 
   /** get_portal() searches for a portal whose name equals name_to_find
    *  @param string [in]  name_to_find is the portal name to look up
@@ -80,7 +76,7 @@ public:
    *         if it is found, or is an empty Portal whose name is ""
    *  @return bool true if anf only if the portal is found
    */
-  bool get_portal( std::string name_to_find, SubwayPortal& portal ) const override;
+  bool get_portal( std::string name_to_find, SubwayPortal& portal );
 
   /** nearest_portal() returns a string representation of the portal that
    *  is nearest to the given point
@@ -88,7 +84,7 @@ public:
    *  @param  double [in]  longitude of point
    *  @return string       portal's name (as defined in subway_portal.h)
    */
-  std::string nearest_portal( double latitude, double longitude ) const override;
+  std::string nearest_portal( double latitude, double longitude );
 
   /** nearest_routes() returns a string representation of the routes that
    *  are nearest to the given point
@@ -96,7 +92,7 @@ public:
    *  @param  double [in]  longitude of point
    *  @return string       representation of set of routes
    */
-  std::string nearest_routes( double latitude, double longitude ) const override;
+  std::string nearest_routes( double latitude, double longitude );
 
 private:
 
@@ -106,10 +102,10 @@ private:
   int number_of_portals;
   SubwayRoute route_masks[ MAX_ROUTES ];
 
-  SubwayPortal find_nearest_portal( double latitude, double longitude ) const;
+  SubwayPortal find_nearest_portal( double latitude, double longitude );
   int find_station( int index );
   void union_stations( int s1, int s2 );
 
 };
 
-#endif
+#endif //SUBWAY_SYSTEM_H__

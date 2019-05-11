@@ -87,4 +87,4 @@ private:
   GPS entrance_location;
 };
 
-#endif
+#endif //SUBWAY_PORTAL_H_
